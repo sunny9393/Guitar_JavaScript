@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page 2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        body{
+            background-color: #DEA527;
+        }
+
+        #main_image{
+            display: block;
+            width: 60%;
+            float: left;
+        }
+        #myDiv{
+            margin-top: 50px;
+            float: right;
+            position: relative;
+            width: 45%;
+            height: 500px;
+            font-size: 25px;
+            font-family: lato;
+            text-align: center;
+            color: black;
+        }
+        #info{
+            width: 500px;
+            padding: 40px;
+            color: black;
+            box-sizing: border-box;
+            margin: auto;
+            text-align: center;
+            font-family: lato;
+            font-size: 20px;
+            border: 5px dashed black;
+        }
+        #buy_button{
+            width: 100px;
+        }
+        #b01,#b02,#edit_button{
+            background-color: black;
+            color: grey;
+        }
+        #b01:hover,#b02:hover,#edit_button:hover{
+            color: #EAEAEA;
+        }
+
+    </style>
+</head>
+
+<body onload="data()">
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Guitars<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Electric Guitars</a></li>
+                    <li><a href="#">Acoustic Guitars</a></li>
+                    <li><a href="#">Acoustic-Electric Guitar</a></li>
+                    <li><a href="#">Classical Guitar</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Bass</a></li>
+            <li><a href="#">Drums</a></li>
+            <li><a href="#">Keyboards</a></li>
+            <li><a href="#">Dj & Lighting</a></li>
+            <li><a href="#">Used Gear</a></li>
+            <li><a href="#">Clearance</a></li>
+        </ul>
+    </div>
+</nav>
+
+<br>
+<div id="main_div"><img id="main_image"  style="width:700px;height: 500px"></div>
+
+<div id="myDiv">
+    <p id="p01"></p>
+    <p id="p02"></p>
+    <p id="p03"></p>
+</div>
+
+<div class="container">
+    <h2>Complete below Form for purchase:</h2>
+    <form name="myForm">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="fname">FirstName:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="fname" placeholder="First Name:" name="fname"><br>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="lname">LastName:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="lname" placeholder="Last Name:" name="lname"><br>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Email:</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email"><br>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="pwd">Password:</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd"><br>
+            </div>
+        </div>
+        <button type="button" id="b02" class="btn btn-default btn-lg btn-block" onclick="review()">Review</button>
+    </form>
+</div>
+
+<div id="info">
+
+</div>
+<button type="button" id="edit_button" class="btn btn-default btn-lg btn-block" onclick="edit()" style="visibility: hidden">Edit</button>
+<button type="button" id="b01" class="btn btn-default btn-lg btn-block" onclick="lastpage()">Buy</button>
+
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+
+<script>
+
+var getdata = localStorage.current_json;
+var data2 = JSON.parse(getdata);
+var index = parseInt(localStorage.getItem("nextpage"));
+
+
+function data(){
+    document.getElementById("main_image").src = data2.allProducts[index].product_image;
+    document.getElementById("p01").innerHTML = data2.allProducts[index].product_description;
+    document.getElementById("p02").innerHTML = data2.allProducts[index].shipping_details;
+    document.getElementById("p03").innerHTML = data2.allProducts[index].price;
+
+    var new_info1 = document.getElementById("main_image").src;
+    var new_info2 = document.getElementById("p01").innerHTML;
+    var new_info3 = document.getElementById("p02").innerHTML;
+    var new_info4 = document.getElementById("p03").innerHTML;
+    localStorage.setItem("main_image",new_info1);
+    localStorage.setItem("p01",new_info2);
+    localStorage.setItem("p02",new_info3);
+    localStorage.setItem("p03",new_info4);
+}
+
+
+
+function review(){
+    var fname1 = document.getElementById("fname").value;
+    var lname1 = document.getElementById("lname").value;
+    var email1 = document.getElementById("email").value;
+    var password1 = document.getElementById("pwd").value;
+
+    document.getElementById("info").innerHTML = "FirstName: " + fname1 + "<br>" +"LastName: " +
+        lname1 + "<br>" +"Email: " + email1 + "<br>" +"Password: " + password1;
+
+    localStorage.setItem("fname",fname1);
+    localStorage.setItem("lname",lname1);
+    localStorage.setItem("email",email1);
+    localStorage.setItem("pwd",password1);
+
+
+    document.myForm.reset();
+    document.getElementById("edit_button").style.visibility="visible";
+
+    if(fname == ""||Number(fname)){alert("Enter your FirstName!")}
+    if(lname == ""||Number(lname)){alert("Enter your LastName!")}
+    if(email == ""){alert("Enter valid Email Address!")}
+    if(password == ""){alert("Enter your Password!")}
+
+}
+
+function edit(){
+    var fname = document.getElementById("fname").value;
+    var lname = document.getElementById("lname").value;
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("pwd").value;
+
+    document.getElementById("info").innerHTML = "FirstName: " + fname + "<br>" +"LastName: " +
+        lname + "<br>" +"Email: " + email + "<br>" +"Password: " + password;
+}
+
+function lastpage(){
+    window.location = 'http://localhost:63342/ProTek/JavaScript%20Assignment/Guitar/index3.html?_ijt=boifntko23vr3qtemp6uhj8fpm';
+}
+
+</script>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Guitar Centre</title>
+
+    <style>
+        body{
+            background-color: #DEA527;
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a, .dropbtn {
+            display: inline-block;
+            color: white;
+            text-align: center;
+            font-size: 20px;
+            padding: 10px 90.65px 10px 25px;
+            text-decoration: none;
+        }
+
+        li a:hover, .dropdown:hover .dropbtn {
+            background-color: red;
+        }
+
+        li.dropdown {
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 80px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {background-color: #f1f1f1}
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+
+        #main_image{
+            margin:auto;
+            display: block;
+            width: 60%;
+        }
+        #prev_next_btn{
+            display: flex;
+            justify-content: center;
+            height: 40px;
+        }
+        .other_button{
+            justify-content: center;
+            height: 40px;
+            margin: auto;
+            display: flex;
+            padding: 15px 25px;
+            font-size: 24px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #999;
+        }
+        .other_button:hover{
+            background-color: #3e8e41
+        }
+        .other_button:active{
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+        .mystyle{
+            width: 100%;
+            padding: 25px;
+            background-color: lightblue;
+            color: black;
+            box-sizing: border-box;
+            margin: auto;
+            text-align: center;
+            font-family: "Calibri Light";
+        }
+    </style>
+</head>
+
+
+<body>
+
+<ul>
+    <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Guitars</a>
+        <div class="dropdown-content">
+            <a href="#">Electric Guitars</a>
+            <a href="#">Acoustic Guitars</a>
+            <a href="#">Acoustic-Electric Guitars</a>
+            <a href="#">Classical Guitars</a>
+        </div>
+    </li>
+    <li><a href="#bass">Bass</a></li>
+    <li><a href="#drums">Drums</a></li>
+    <li><a href="#keyboards">Keyboards</a></li>
+    <li><a href="#dj">Dj & Lighting</a></li>
+    <li><a href="#gear">Used Gear</a></li>
+    <li><a href="#clearance">Clearance</a></li>
+</ul>
+<br>
+<div id="main_div"><img id="main_image" src="main.jpg" style="width:800px;height: 500px"></div>
+<br>
+
+<div id="prev_next_btn">
+<button onclick="prev()" style="width: 100px">Prev</button>
+<button onclick="next()" style="width: 100px">Next</button>
+</div>
+<br>
+
+
+<button class="other_button" onclick="myFunction1()">Product Info</button><br>
+<div id="product_info"></div>
+<button class="other_button" onclick="myFunction2()">Shipping Info</button><br>
+<div id="shipping_info"></div>
+<button class="other_button" onclick="myFunction3()">Customer Review</button><br>
+<div id="customer_review"></div>
+<button class="other_button" onclick="nextpage()">Buy</button>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+
+<script>
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            myObj = JSON.parse(this.responseText);
+            localStorage.current_json = JSON.stringify(myObj);
+        }
+    };
+
+    xhttp.open("GET", "guitardata.json", true);
+    xhttp.send();
+    a = -1;
+            temp1 = document.getElementById("main_image");
+            temp2 = document.getElementById("product_info");
+            temp3 = document.getElementById("shipping_info");
+            temp4 = document.getElementById("customer_review");
+
+            temp2.style.visibility="hidden";
+            temp3.style.visibility="hidden";
+            temp4.style.visibility="hidden";
+    function myData(){
+         temp1.src = myObj.allProducts[a].product_image;
+         temp2.innerHTML = myObj.allProducts[a].product_description;
+         temp3.innerHTML = myObj.allProducts[a].shipping_details;
+         temp4.innerHTML = myObj.allProducts[a].customers_review;
+     }
+
+    function next(){
+                if(a < myObj.allProducts.length){
+                    a++;
+                    console.log(myObj.allProducts[a].product_image);
+                    myData();
+                }else{
+                    alert("This is Last Image");
+                }
+                localStorage.setItem("nextpage",a);
+            }
+
+            function prev(){
+                if(a > 0){
+                    a--;
+                    myData();
+                }else{
+                    alert("This is Last Image");
+                }
+                localStorage.setItem("nextpage",a);
+            }
+
+            function myFunction1(){
+                temp2.style.visibility="visible";
+                temp2.classList.toggle("mystyle");
+            }
+
+            function myFunction2(){
+                temp3.style.visibility="visible";
+                temp3.classList.toggle("mystyle");
+            }
+
+            function myFunction3(){
+                temp4.style.visibility="visible";
+                temp4.classList.toggle("mystyle");
+            }
+
+            function nextpage(){
+                window.location = 'http://localhost:63342/ProTek/JavaScript%20Assignment/Guitar/index2.html?_ijt=n7upiln1utgbqos2hb13em5ktd'
+            }
+
+
+</script>
+</html>

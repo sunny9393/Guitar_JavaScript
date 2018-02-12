@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page 3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+        body{
+            background-color: #DEA527;
+        }
+        #buy_image{
+            margin:auto;
+            display: block;
+            width: 60%;
+        }
+        #myDiv,#myDiv2{
+            width: 700px;
+            padding: 25px;
+            color: black;
+            box-sizing: border-box;
+            margin: auto;
+            text-align: center;
+            font-family: lato;
+            font-size: 20px;
+        }
+        #b01{
+            color: grey;
+        }
+        #b01:hover{
+            color: white;
+        }
+        h2{
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Guitars<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Electric Guitars</a></li>
+                    <li><a href="#">Acoustic Guitars</a></li>
+                    <li><a href="#">Acoustic-Electric Guitar</a></li>
+                    <li><a href="#">Classical Guitar</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Bass</a></li>
+            <li><a href="#">Drums</a></li>
+            <li><a href="#">Keyboards</a></li>
+            <li><a href="#">Dj & Lighting</a></li>
+            <li><a href="#">Used Gear</a></li>
+            <li><a href="#">Clearance</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div id="main_div"><img id="buy_image"  style="width:700px;height: 500px"></div>
+
+<div id="myDiv">
+    <h2>Confirmation:</h2>
+    <p id="p10"></p>
+    <p id="p20"></p>
+    <p id="p30"></p>
+</div>
+
+<div id="myDiv2">
+    <h2>User Information:</h2>
+    <p id="p100"></p>
+    <p id="p200"></p>
+    <p id="p300"></p>
+    <p id="p400"></p>
+</div>
+<button type="button" id="b01" class="btn btn-default btn-lg btn-block" onclick="firstpage()" style="background-color: black">Go to Home</button>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+
+<script>
+
+   var storedValue1 = localStorage.getItem("main_image");
+   var storedValue2 = localStorage.getItem("p01");
+   var storedValue3 = localStorage.getItem("p02");
+   var storedValue4 = localStorage.getItem("p03");
+
+    document.getElementById("buy_image").src = storedValue1;
+    document.getElementById("p10").innerHTML = storedValue2;
+    document.getElementById("p20").innerHTML = storedValue3;
+    document.getElementById("p30").innerHTML = storedValue4;
+
+    var data1 = localStorage.getItem("fname");
+    var data2 = localStorage.getItem("lname");
+    var data3 = localStorage.getItem("email");
+    var data4 = localStorage.getItem("pwd");
+
+    document.getElementById("p100").innerHTML = data1;
+    document.getElementById("p200").innerHTML = data2;
+    document.getElementById("p300").innerHTML = data3;
+    document.getElementById("p400").innerHTML = data4;
+
+
+    function firstpage(){
+        window.location = 'http://localhost:63342/ProTek/JavaScript%20Assignment/Guitar/index1.html?_ijt=cilf54fi6e8kiln6u275onp4qk';
+    }
+</script>
+</html>
